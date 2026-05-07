@@ -33,7 +33,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/", "/error").permitAll()
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/auth/**", "/torneos/**", "/juegos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/torneos", "/api/torneos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/juegos", "/api/juegos/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
@@ -68,13 +68,13 @@ public class SecurityConfig {
     public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
         org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
         configuration.setAllowedOrigins(java.util.List.of(
-            "http://localhost:4200/",
-            "http://proyectofinaljesusblazquezduran2daw-production.up.railway.app/",
+            "http://localhost:4200",
+            "https://proyectofinaljesusblazquezduran2daw-production.up.railway.app/",
             "https://proyecto-final-jesus-blazquez-duran.vercel.app/"
         ));
         configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(java.util.List.of("*"));
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
         org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
