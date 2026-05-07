@@ -68,7 +68,8 @@ public class SecurityConfig {
         org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
         configuration.setAllowedOrigins(java.util.List.of(
             "http://localhost:4200",
-            "http://proyectofinaljesusblazquezduran2daw-production.up.railway.app"
+            "http://proyectofinaljesusblazquezduran2daw-production.up.railway.app",
+            "https://proyecto-final-jesus-blazquez-duran.vercel.app"
         ));
         configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(java.util.List.of("*"));
