@@ -14,6 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/torneos")
 @RequiredArgsConstructor
@@ -36,7 +38,8 @@ public class TorneoController {
             @RequestParam(required = false) String nombre,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size) {
-        return torneoService.getAllTorneos(juegoId, esPorEquipos, esPresencial, estado, nombre, PageRequest.of(page, size));
+        return torneoService.getAllTorneos(juegoId, esPorEquipos, esPresencial, estado, nombre,
+                PageRequest.of(page, size));
     }
 
     @PostMapping
