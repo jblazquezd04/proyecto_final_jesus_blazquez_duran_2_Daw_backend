@@ -81,8 +81,52 @@ public class DataSeeder implements CommandLineRunner {
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg")
                                         .build();
 
+                        Juego Cs2 = Juego.builder()
+                                        .nombre("Counter-Strike 2")
+                                        .desarrolladora("Valve")
+                                        .genero("Shooter")
+                                        .imagenUrl("")
+                                        .build();
+
+                        Juego RL = Juego.builder()
+                                        .nombre("Rocket League")
+                                        .desarrolladora("Psyonix")
+                                        .genero("Sports")
+                                        .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/c/c3/Rocket_League_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                                        .build();
+                        Juego Valorant = Juego.builder()
+                                        .nombre("Valorant")
+                                        .desarrolladora("Riot Games")
+                                        .genero("Shooter")
+                                        .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                                        .build();
+                        Juego r6 = Juego.builder()
+                                        .nombre("Rainbow Six Siege")
+                                        .desarrolladora("Ubisoft")
+                                        .genero("Shooter")
+                                        .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/a/ad/Tom_Clancy%27s_Rainbow_Six_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                                        .build();
+                        Juego CR = Juego.builder()
+                                        .nombre("Clash Royale")
+                                        .desarrolladora("Supercell")
+                                        .genero("Strategy")
+                                        .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/5/5a/Supercell-logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                                        .build();
+                        Juego MK = Juego.builder()
+                                        .nombre("Mortal Kombat")
+                                        .desarrolladora("NetherRealm Studios")
+                                        .genero("Fighting")
+                                        .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/4/45/Mortal_Kombat_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                                        .build();
+
                         juegoRepository.save(sf6);
                         juegoRepository.save(lol);
+                        juegoRepository.save(Cs2);
+                        juegoRepository.save(RL);
+                        juegoRepository.save(Valorant);
+                        juegoRepository.save(r6);
+                        juegoRepository.save(CR);
+                        juegoRepository.save(MK);
 
                         // 3. Equipos
                         Equipo equipoT1 = Equipo.builder()
@@ -101,7 +145,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .organizadores(Set.of(organizador1))
                                         .participantes(Set.of(jugador1, jugador2))
                                         .prizePool(500.0)
-                                        .fechaInicio("20/10/2025")
+                                        .fechaInicio("15/10/2026")
                                         .estado(EstadoTorneo.PENDIENTE)
                                         .isTrending(true)
                                         .esPresencial(true)
@@ -118,7 +162,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .organizadores(Set.of(organizador2))
                                         .equiposParticipantes(Set.of(equipoT1))
                                         .prizePool(10000.0)
-                                        .fechaInicio("28/10/2025")
+                                        .fechaInicio("11/11/2026")
                                         .estado(EstadoTorneo.PENDIENTE)
                                         .isTrending(false)
                                         .esPresencial(true)
@@ -128,8 +172,45 @@ public class DataSeeder implements CommandLineRunner {
                                         .longitud(-79.347015)
                                         .build();
 
+                        Torneo torneoIndividual3 = Torneo.builder()
+                                        .nombre("Torneo Rocket League")
+                                        .juego(RL)
+                                        .esPorEquipos(false)
+                                        .organizadores(Set.of(organizador1))
+                                        .participantes(Set.of(jugador1, jugador2))
+                                        .prizePool(500.0)
+                                        .fechaInicio("15/11/2026")
+                                        .estado(EstadoTorneo.PENDIENTE)
+                                        .isTrending(true)
+                                        .esPresencial(false)
+                                        .pais("México")
+                                        .ciudad("CDMX")
+                                        .latitud(19.4326)
+                                        .longitud(-99.1332)
+                                        .build();
+                        Torneo torneoIndividual4 = Torneo.builder()
+                                        .nombre("CS2 OPEN FINALE")
+                                        .juego(Cs2)
+                                        .esPorEquipos(false)
+                                        .organizadores(Set.of(organizador1))
+                                        .participantes(Set.of(jugador1, jugador2))
+                                        .prizePool(1000.0)
+                                        .fechaInicio("10/11/2026")
+                                        .estado(EstadoTorneo.PENDIENTE)
+                                        .isTrending(true)
+                                        .esPresencial(true)
+                                        .pais("México")
+                                        .ciudad("Guadalajara")
+                                        .latitud(20.659724)
+                                        .longitud(-103.349644)
+                                        .build();
+
+
+                        
                         torneoRepository.save(torneoIndividual);
                         torneoRepository.save(torneoEquipos);
+                        torneoRepository.save(torneoIndividual3);
+                        torneoRepository.save(torneoIndividual4);
 
                         System.out.println("Datos de prueba insertados con éxito.");
                 }
