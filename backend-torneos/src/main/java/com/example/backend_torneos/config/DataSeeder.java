@@ -36,6 +36,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .torneosRealizados(1)
                                         .premiosOtorgados(500.0)
                                         .build();
+                        usuarioRepository.save(organizador1);
                         }
                         if (!usuarioRepository.findByUsername("EVO_Official").isPresent()) {
                         Usuario organizador2 = Usuario.builder()
@@ -46,6 +47,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .torneosRealizados(50)
                                         .premiosOtorgados(100000.0)
                                         .build();
+                        usuarioRepository.save(organizador1);
                         }
                         if (!usuarioRepository.findByUsername("ProPlayer99").isPresent()) {
                         Usuario jugador1 = Usuario.builder()
@@ -56,6 +58,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .torneosJugados(10)
                                         .torneosGanados(4)
                                         .build();
+                        usuarioRepository.save(jugador1);
                         }
                         if (!usuarioRepository.findByUsername("NoobMaster").isPresent()) {
                         Usuario jugador2 = Usuario.builder()
@@ -64,13 +67,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .password(passwordEncoder.encode("1234"))
                                         .modoActual(ModoUsuario.JUGADOR)
                                         .build();
-                        }
-
-                        usuarioRepository.save(organizador1);
-                        usuarioRepository.save(organizador2);
-                        usuarioRepository.save(jugador1);
                         usuarioRepository.save(jugador2);
-
+                        }
                         // 2. Juegos
                         if (!juegoRepository.findByNombre("2XKO").isPresent()) {
                         Juego sf6 = Juego.builder()
@@ -79,6 +77,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("Fighting")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/8/88/2XKO_game_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        juegoRepository.save(sf6);
                         }
                         if (!juegoRepository.findByNombre("League of Legends").isPresent()) {
                         Juego lol = Juego.builder()
@@ -87,6 +86,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("MOBA")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg")
                                         .build();
+                        juegoRepository.save(lol);
                         }
                         if (!juegoRepository.findByNombre("Counter-Strike 2").isPresent()) {
                         Juego Cs2 = Juego.builder()
@@ -95,6 +95,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("Shooter")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        juegoRepository.save(Cs2);
                         }
                         if (!juegoRepository.findByNombre("Rocket League").isPresent()) {
                         Juego RL = Juego.builder()
@@ -103,6 +104,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("Sports")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/c/c3/Rocket_League_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        juegoRepository.save(RL);
                         }
                         if (!juegoRepository.findByNombre("Valorant").isPresent()) {
                         Juego Valorant = Juego.builder()
@@ -111,6 +113,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("Shooter")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        juegoRepository.save(Valorant);
                         }
                         if (!juegoRepository.findByNombre("Rainbow Six Siege").isPresent()) {
                         Juego r6 = Juego.builder()
@@ -119,6 +122,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("Shooter")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/a/ad/Tom_Clancy%27s_Rainbow_Six_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        juegoRepository.save(r6);
                         }
                         if (!juegoRepository.findByNombre("Clash Royale").isPresent()) {
                         Juego CR = Juego.builder()
@@ -127,6 +131,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("Strategy")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/5/5a/Supercell-logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        juegoRepository.save(CR);
                         }
                         if (!juegoRepository.findByNombre("Mortal Kombat").isPresent()) {
                         Juego MK = Juego.builder()
@@ -135,16 +140,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .genero("Fighting")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/4/45/Mortal_Kombat_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
-                        }
-
-                        juegoRepository.save(sf6);
-                        juegoRepository.save(lol);
-                        juegoRepository.save(Cs2);
-                        juegoRepository.save(RL);
-                        juegoRepository.save(Valorant);
-                        juegoRepository.save(r6);
-                        juegoRepository.save(CR);
                         juegoRepository.save(MK);
+                        }
 
                         // 3. Equipos
                         if (!equipoRepository.findByNombre("T1 Esports").isPresent()) {
@@ -153,9 +150,16 @@ public class DataSeeder implements CommandLineRunner {
                                         .logoUrl("https://upload.wikimedia.org/wikipedia/en/f/f9/T1_logo.svg")
                                         .miembros(Set.of(jugador1, jugador2))
                                         .build();
-                        }
-
                         equipoRepository.save(equipoT1);
+                        }
+                        if (!equipoRepository.findByNombre("Fnatic").isPresent()) {
+                        Equipo equipoFnatic = Equipo.builder()
+                                        .nombre("Fnatic")
+                                        .logoUrl("https://upload.wikimedia.org/wikipedia/commons/5/59/Fnatic_logo.svg")
+                                        .miembros(Set.of(jugador1, jugador2))
+                                        .build();
+                        equipoRepository.save(equipoFnatic);
+                        }
 
                         // 4. Torneos
                         if (!torneoRepository.findByNombre("Torneo 2XKO Amateur").isPresent()) {
@@ -175,6 +179,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(40.4168)
                                         .longitud(-3.7038)
                                         .build();
+                                        torneoRepository.save(torneoIndividual);
                         }
                         if (!torneoRepository.findByNombre("LoL Worlds Cup").isPresent()) {
                         Torneo torneoEquipos = Torneo.builder()
@@ -193,6 +198,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(43.651070)
                                         .longitud(-79.347015)
                                         .build();
+                        torneoRepository.save(torneoEquipos);
                         }
                         if (!torneoRepository.findByNombre("Torneo Rocket League").isPresent()) {
                         Torneo torneoIndividual3 = Torneo.builder()
@@ -211,6 +217,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(19.4326)
                                         .longitud(-99.1332)
                                         .build();
+                        torneoRepository.save(torneoIndividual3);
                         }
                         if (!torneoRepository.findByNombre("CS2 OPEN FINALE").isPresent()) {
                         Torneo torneoIndividual4 = Torneo.builder()
@@ -229,6 +236,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(20.659724)
                                         .longitud(-103.349644)
                                         .build();
+                        torneoRepository.save(torneoIndividual4);
                         }
                         if (!torneoRepository.findByNombre("Fighting Showdown").isPresent()) {
                         Torneo torneoIndividual5 = Torneo.builder()
@@ -247,6 +255,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(41.3851)
                                         .longitud(2.1734)
                                         .build();
+                        torneoRepository.save(torneoIndividual5);
                         }
                         if (!torneoRepository.findByNombre("Mobile Masters").isPresent()) {
                         Torneo torneoIndividual6 = Torneo.builder()
@@ -265,15 +274,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(41.3851)
                                         .longitud(2.1734)
                                         .build();
-                        }
-
-                        torneoRepository.save(torneoIndividual);
-                        torneoRepository.save(torneoEquipos);
-                        torneoRepository.save(torneoIndividual3);
-                        torneoRepository.save(torneoIndividual4);
-                        torneoRepository.save(torneoIndividual5);
                         torneoRepository.save(torneoIndividual6);
-
+                        }
                         System.out.println("Datos de prueba insertados con éxito.");
                 }
         }
