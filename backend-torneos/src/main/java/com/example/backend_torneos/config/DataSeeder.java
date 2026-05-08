@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -152,7 +153,7 @@ public class DataSeeder implements CommandLineRunner {
             equipoRepository.save(Equipo.builder()
                 .nombre("T1 Esports")
                 .logoUrl("https://upload.wikimedia.org/wikipedia/en/f/f9/T1_logo.svg")
-                .miembros(Set.of(jugador1, jugador2))
+                .miembros(new HashSet<>(Set.of(jugador1, jugador2)))
                 .build())
         );
 
@@ -160,7 +161,7 @@ public class DataSeeder implements CommandLineRunner {
             equipoRepository.save(Equipo.builder()
                 .nombre("Fnatic")
                 .logoUrl("https://upload.wikimedia.org/wikipedia/commons/5/59/Fnatic_logo.svg")
-                .miembros(Set.of(jugador1, jugador2))
+                .miembros(new HashSet<>(Set.of(jugador1, jugador2)))
                 .build())
         );
 
@@ -172,8 +173,8 @@ public class DataSeeder implements CommandLineRunner {
                 .nombre("Torneo 2XKO Amateur")
                 .juego(sf6)
                 .esPorEquipos(false)
-                .organizadores(Set.of(organizador1))
-                .participantes(Set.of(jugador1, jugador2))
+                .organizadores(new HashSet<>(Set.of(organizador1)))
+                .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
                 .prizePool(500.0)
                 .fechaInicio("15/10/2026")
                 .estado(EstadoTorneo.PENDIENTE)
@@ -191,8 +192,8 @@ public class DataSeeder implements CommandLineRunner {
                 .nombre("LoL Worlds Cup")
                 .juego(lol)
                 .esPorEquipos(true)
-                .organizadores(Set.of(organizador2))
-                .equiposParticipantes(Set.of(equipoT1))
+                .organizadores(new HashSet<>(Set.of(organizador2)))
+                .equiposParticipantes(new HashSet<>(Set.of(equipoT1)))
                 .prizePool(10000.0)
                 .fechaInicio("11/11/2026")
                 .estado(EstadoTorneo.PENDIENTE)
@@ -210,8 +211,8 @@ public class DataSeeder implements CommandLineRunner {
                 .nombre("Torneo Rocket League")
                 .juego(RL)
                 .esPorEquipos(false)
-                .organizadores(Set.of(organizador1))
-                .participantes(Set.of(jugador1, jugador2))
+                .organizadores(new HashSet<>(Set.of(organizador1)))
+                .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
                 .prizePool(500.0)
                 .fechaInicio("15/11/2026")
                 .estado(EstadoTorneo.PENDIENTE)
@@ -229,8 +230,8 @@ public class DataSeeder implements CommandLineRunner {
                 .nombre("CS2 OPEN FINALE")
                 .juego(Cs2)
                 .esPorEquipos(false)
-                .organizadores(Set.of(organizador1))
-                .participantes(Set.of(jugador1, jugador2))
+                .organizadores(new HashSet<>(Set.of(organizador1)))
+                .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
                 .prizePool(1000.0)
                 .fechaInicio("10/11/2026")
                 .estado(EstadoTorneo.PENDIENTE)
@@ -248,8 +249,8 @@ public class DataSeeder implements CommandLineRunner {
                 .nombre("Fighting Showdown")
                 .juego(MK)
                 .esPorEquipos(false)
-                .organizadores(Set.of(organizador1))
-                .participantes(Set.of(jugador1, jugador2))
+                .organizadores(new HashSet<>(Set.of(organizador1)))
+                .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
                 .prizePool(500.0)
                 .fechaInicio("15/12/2026")
                 .estado(EstadoTorneo.PENDIENTE)
@@ -267,8 +268,8 @@ public class DataSeeder implements CommandLineRunner {
                 .nombre("Mobile Masters")
                 .juego(CR)
                 .esPorEquipos(false)
-                .organizadores(Set.of(organizador1))
-                .participantes(Set.of(jugador1, jugador2))
+                .organizadores(new HashSet<>(Set.of(organizador1)))
+                .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
                 .prizePool(500.0)
                 .fechaInicio("15/12/2026")
                 .estado(EstadoTorneo.PENDIENTE)
