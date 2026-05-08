@@ -27,6 +27,7 @@ public class DataSeeder implements CommandLineRunner {
                         System.out.println("No hay torneos en la base de datos. Insertando datos de prueba...");
 
                         // 1. Usuarios
+                        if (!usuarioRepository.findByUsername("JesusBlazquez").isPresent()) {
                         Usuario organizador1 = Usuario.builder()
                                         .username("JesusBlazquez")
                                         .email("jesus@example.com")
@@ -35,7 +36,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .torneosRealizados(1)
                                         .premiosOtorgados(500.0)
                                         .build();
-
+                        }
+                        if (!usuarioRepository.findByUsername("EVO_Official").isPresent()) {
                         Usuario organizador2 = Usuario.builder()
                                         .username("EVO_Official")
                                         .email("admin@evo.gg")
@@ -44,7 +46,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .torneosRealizados(50)
                                         .premiosOtorgados(100000.0)
                                         .build();
-
+                        }
+                        if (!usuarioRepository.findByUsername("ProPlayer99").isPresent()) {
                         Usuario jugador1 = Usuario.builder()
                                         .username("ProPlayer99")
                                         .email("pro@example.com")
@@ -53,13 +56,15 @@ public class DataSeeder implements CommandLineRunner {
                                         .torneosJugados(10)
                                         .torneosGanados(4)
                                         .build();
-
+                        }
+                        if (!usuarioRepository.findByUsername("NoobMaster").isPresent()) {
                         Usuario jugador2 = Usuario.builder()
                                         .username("NoobMaster")
                                         .email("noob@example.com")
                                         .password(passwordEncoder.encode("1234"))
                                         .modoActual(ModoUsuario.JUGADOR)
                                         .build();
+                        }
 
                         usuarioRepository.save(organizador1);
                         usuarioRepository.save(organizador2);
@@ -67,57 +72,70 @@ public class DataSeeder implements CommandLineRunner {
                         usuarioRepository.save(jugador2);
 
                         // 2. Juegos
+                        if (!juegoRepository.findByNombre("2XKO").isPresent()) {
                         Juego sf6 = Juego.builder()
                                         .nombre("2XKO")
                                         .desarrolladora("Riot Games")
                                         .genero("Fighting")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/8/88/2XKO_game_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
-
+                        }
+                        if (!juegoRepository.findByNombre("League of Legends").isPresent()) {
                         Juego lol = Juego.builder()
                                         .nombre("League of Legends")
                                         .desarrolladora("Riot Games")
                                         .genero("MOBA")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg")
                                         .build();
-
+                        }
+                        if (!juegoRepository.findByNombre("Counter-Strike 2").isPresent()) {
                         Juego Cs2 = Juego.builder()
                                         .nombre("Counter-Strike 2")
                                         .desarrolladora("Valve")
                                         .genero("Shooter")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
-
+                        }
+                        if (!juegoRepository.findByNombre("Rocket League").isPresent()) {
                         Juego RL = Juego.builder()
                                         .nombre("Rocket League")
                                         .desarrolladora("Psyonix")
                                         .genero("Sports")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/c/c3/Rocket_League_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        }
+                        if (!juegoRepository.findByNombre("Valorant").isPresent()) {
                         Juego Valorant = Juego.builder()
                                         .nombre("Valorant")
                                         .desarrolladora("Riot Games")
                                         .genero("Shooter")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        }
+                        if (!juegoRepository.findByNombre("Rainbow Six Siege").isPresent()) {
                         Juego r6 = Juego.builder()
                                         .nombre("Rainbow Six Siege")
                                         .desarrolladora("Ubisoft")
                                         .genero("Shooter")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/a/ad/Tom_Clancy%27s_Rainbow_Six_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        }
+                        if (!juegoRepository.findByNombre("Clash Royale").isPresent()) {
                         Juego CR = Juego.builder()
                                         .nombre("Clash Royale")
                                         .desarrolladora("Supercell")
                                         .genero("Strategy")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/5/5a/Supercell-logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        }
+                        if (!juegoRepository.findByNombre("Mortal Kombat").isPresent()) {
                         Juego MK = Juego.builder()
                                         .nombre("Mortal Kombat")
                                         .desarrolladora("NetherRealm Studios")
                                         .genero("Fighting")
                                         .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/4/45/Mortal_Kombat_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
+                        }
 
                         juegoRepository.save(sf6);
                         juegoRepository.save(lol);
@@ -129,15 +147,18 @@ public class DataSeeder implements CommandLineRunner {
                         juegoRepository.save(MK);
 
                         // 3. Equipos
+                        if (!equipoRepository.findByNombre("T1 Esports").isPresent()) {
                         Equipo equipoT1 = Equipo.builder()
                                         .nombre("T1 Esports")
                                         .logoUrl("https://upload.wikimedia.org/wikipedia/en/f/f9/T1_logo.svg")
                                         .miembros(Set.of(jugador1, jugador2))
                                         .build();
+                        }
 
                         equipoRepository.save(equipoT1);
 
                         // 4. Torneos
+                        if (!torneoRepository.findByNombre("Torneo 2XKO Amateur").isPresent()) {
                         Torneo torneoIndividual = Torneo.builder()
                                         .nombre("Torneo 2XKO Amateur")
                                         .juego(sf6)
@@ -154,7 +175,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(40.4168)
                                         .longitud(-3.7038)
                                         .build();
-
+                        }
+                        if (!torneoRepository.findByNombre("LoL Worlds Cup").isPresent()) {
                         Torneo torneoEquipos = Torneo.builder()
                                         .nombre("LoL Worlds Cup")
                                         .juego(lol)
@@ -171,7 +193,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(43.651070)
                                         .longitud(-79.347015)
                                         .build();
-
+                        }
+                        if (!torneoRepository.findByNombre("Torneo Rocket League").isPresent()) {
                         Torneo torneoIndividual3 = Torneo.builder()
                                         .nombre("Torneo Rocket League")
                                         .juego(RL)
@@ -188,6 +211,8 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(19.4326)
                                         .longitud(-99.1332)
                                         .build();
+                        }
+                        if (!torneoRepository.findByNombre("CS2 OPEN FINALE").isPresent()) {
                         Torneo torneoIndividual4 = Torneo.builder()
                                         .nombre("CS2 OPEN FINALE")
                                         .juego(Cs2)
@@ -204,13 +229,50 @@ public class DataSeeder implements CommandLineRunner {
                                         .latitud(20.659724)
                                         .longitud(-103.349644)
                                         .build();
+                        }
+                        if (!torneoRepository.findByNombre("Fighting Showdown").isPresent()) {
+                        Torneo torneoIndividual5 = Torneo.builder()
+                                        .nombre("Fighting Showdown")
+                                        .juego(MK)
+                                        .esPorEquipos(false)
+                                        .organizadores(Set.of(organizador1))
+                                        .participantes(Set.of(jugador1, jugador2))
+                                        .prizePool(500.0)
+                                        .fechaInicio("15/12/2026")
+                                        .estado(EstadoTorneo.PENDIENTE)
+                                        .isTrending(true)
+                                        .esPresencial(true)
+                                        .pais("España")
+                                        .ciudad("Barcelona")
+                                        .latitud(41.3851)
+                                        .longitud(2.1734)
+                                        .build();
+                        }
+                        if (!torneoRepository.findByNombre("Mobile Masters").isPresent()) {
+                        Torneo torneoIndividual6 = Torneo.builder()
+                                        .nombre("Mobile Masters")
+                                        .juego(CR)
+                                        .esPorEquipos(false)
+                                        .organizadores(Set.of(organizador1))
+                                        .participantes(Set.of(jugador1, jugador2))
+                                        .prizePool(500.0)
+                                        .fechaInicio("15/12/2026")
+                                        .estado(EstadoTorneo.PENDIENTE)
+                                        .isTrending(true)
+                                        .esPresencial(true)
+                                        .pais("España")
+                                        .ciudad("Barcelona")
+                                        .latitud(41.3851)
+                                        .longitud(2.1734)
+                                        .build();
+                        }
 
-
-                        
                         torneoRepository.save(torneoIndividual);
                         torneoRepository.save(torneoEquipos);
                         torneoRepository.save(torneoIndividual3);
                         torneoRepository.save(torneoIndividual4);
+                        torneoRepository.save(torneoIndividual5);
+                        torneoRepository.save(torneoIndividual6);
 
                         System.out.println("Datos de prueba insertados con éxito.");
                 }
