@@ -6,7 +6,10 @@ import com.example.backend_torneos.dtos.EquipoDTO;
 import java.util.List;
 
 public interface EquipoService {
-    List<EquipoDTO> getAll();
-    EquipoDTO crear(CrearEquipoDTO dto, String creadorEmail);
-    EquipoDTO unirse(Long equipoId, String email);
+    List<EquipoDTO> getEquiposPorTorneo(Long torneoId);
+    EquipoDTO crearEquipoParaTorneo(Long torneoId, CrearEquipoDTO dto, String email);
+    EquipoDTO unirse(Long torneoId, Long equipoId, String email);
+    EquipoDTO aprobar(Long torneoId, Long equipoId, String organizadorEmail);
+    EquipoDTO rechazar(Long torneoId, Long equipoId, String organizadorEmail);
+    List<EquipoDTO> getMisEquipos(String email);
 }

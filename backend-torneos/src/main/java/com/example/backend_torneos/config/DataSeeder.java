@@ -24,12 +24,12 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Ejecutando Data Seeder... Verificando e insertando datos faltantes.");
+        System.out.println("Ejecutando Data Seeder...");
 
         // ==========================================
         // 1. USUARIOS
         // ==========================================
-        Usuario organizador1 = usuarioRepository.findByUsername("JesusBlazquez").orElseGet(() -> 
+        Usuario organizador1 = usuarioRepository.findByUsername("JesusBlazquez").orElseGet(() ->
             usuarioRepository.save(Usuario.builder()
                 .username("JesusBlazquez")
                 .email("jesus@example.com")
@@ -40,7 +40,7 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        Usuario organizador2 = usuarioRepository.findByUsername("EVO_Official").orElseGet(() -> 
+        Usuario organizador2 = usuarioRepository.findByUsername("EVO_Official").orElseGet(() ->
             usuarioRepository.save(Usuario.builder()
                 .username("EVO_Official")
                 .email("admin@evo.gg")
@@ -51,7 +51,7 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        Usuario jugador1 = usuarioRepository.findByUsername("ProPlayer99").orElseGet(() -> 
+        Usuario jugador1 = usuarioRepository.findByUsername("ProPlayer99").orElseGet(() ->
             usuarioRepository.save(Usuario.builder()
                 .username("ProPlayer99")
                 .email("pro@example.com")
@@ -62,7 +62,7 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        Usuario jugador2 = usuarioRepository.findByUsername("NoobMaster").orElseGet(() -> 
+        Usuario jugador2 = usuarioRepository.findByUsername("NoobMaster").orElseGet(() ->
             usuarioRepository.save(Usuario.builder()
                 .username("NoobMaster")
                 .email("noob@example.com")
@@ -74,16 +74,16 @@ public class DataSeeder implements CommandLineRunner {
         // ==========================================
         // 2. JUEGOS
         // ==========================================
-        Juego sf6 = juegoRepository.findByNombre("2XKO").orElseGet(() -> 
+        Juego sf6 = juegoRepository.findByNombre("2XKO").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("2XKO")
                 .desarrolladora("Riot Games")
                 .genero("Fighting")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/7/71/Street_Fighter_old_logo.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/7/71/Street_Fighter_old_logo.png")
                 .build())
         );
 
-        Juego lol = juegoRepository.findByNombre("League of Legends").orElseGet(() -> 
+        Juego lol = juegoRepository.findByNombre("League of Legends").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("League of Legends")
                 .desarrolladora("Riot Games")
@@ -92,83 +92,64 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        Juego Cs2 = juegoRepository.findByNombre("Counter-Strike 2").orElseGet(() -> 
+        Juego cs2 = juegoRepository.findByNombre("Counter-Strike 2").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("Counter-Strike 2")
                 .desarrolladora("Valve")
                 .genero("Shooter")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg")
                 .build())
         );
 
-        Juego RL = juegoRepository.findByNombre("Rocket League").orElseGet(() -> 
+        Juego rl = juegoRepository.findByNombre("Rocket League").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("Rocket League")
                 .desarrolladora("Psyonix")
                 .genero("Sports")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/c/c3/Rocket_League_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/c/c3/Rocket_League_logo.svg")
                 .build())
         );
 
-        Juego Valorant = juegoRepository.findByNombre("Valorant").orElseGet(() -> 
+        Juego valorant = juegoRepository.findByNombre("Valorant").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("Valorant")
                 .desarrolladora("Riot Games")
                 .genero("Shooter")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg")
                 .build())
         );
 
-        Juego r6 = juegoRepository.findByNombre("Rainbow Six Siege").orElseGet(() -> 
+        Juego r6 = juegoRepository.findByNombre("Rainbow Six Siege").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("Rainbow Six Siege")
                 .desarrolladora("Ubisoft")
                 .genero("Shooter")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/a/ad/Tom_Clancy%27s_Rainbow_Six_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/a/ad/Tom_Clancy%27s_Rainbow_Six_logo.svg")
                 .build())
         );
 
-        Juego CR = juegoRepository.findByNombre("Clash Royale").orElseGet(() -> 
+        Juego cr = juegoRepository.findByNombre("Clash Royale").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("Clash Royale")
                 .desarrolladora("Supercell")
                 .genero("Strategy")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/5/5a/Supercell-logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/5/5a/Supercell-logo.svg")
                 .build())
         );
 
-        Juego MK = juegoRepository.findByNombre("Mortal Kombat").orElseGet(() -> 
+        Juego mk = juegoRepository.findByNombre("Mortal Kombat").orElseGet(() ->
             juegoRepository.save(Juego.builder()
                 .nombre("Mortal Kombat")
                 .desarrolladora("NetherRealm Studios")
                 .genero("Fighting")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/4/45/Mortal_Kombat_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/4/45/Mortal_Kombat_logo.svg")
                 .build())
         );
 
         // ==========================================
-        // 3. EQUIPOS
+        // 3. TORNEOS (primero, para que los equipos los referencien)
         // ==========================================
-        Equipo equipoT1 = equipoRepository.findByNombre("T1 Esports").orElseGet(() -> 
-            equipoRepository.save(Equipo.builder()
-                .nombre("T1 Esports")
-                .logoUrl("https://upload.wikimedia.org/wikipedia/en/f/f9/T1_logo.svg")
-                .miembros(new HashSet<>(Set.of(jugador1, jugador2)))
-                .build())
-        );
-
-        Equipo equipoFnatic = equipoRepository.findByNombre("Fnatic").orElseGet(() -> 
-            equipoRepository.save(Equipo.builder()
-                .nombre("Fnatic")
-                .logoUrl("https://upload.wikimedia.org/wikipedia/commons/5/59/Fnatic_logo.svg")
-                .miembros(new HashSet<>(Set.of(jugador1, jugador2)))
-                .build())
-        );
-
-        // ==========================================
-        // 4. TORNEOS
-        // ==========================================
-        torneoRepository.findByNombre("Torneo 2XKO Amateur").orElseGet(() -> 
+        torneoRepository.findByNombre("Torneo 2XKO Amateur").orElseGet(() ->
             torneoRepository.save(Torneo.builder()
                 .nombre("Torneo 2XKO Amateur")
                 .juego(sf6)
@@ -187,13 +168,12 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        torneoRepository.findByNombre("LoL Worlds Cup").orElseGet(() -> 
+        Torneo lolWorldsCup = torneoRepository.findByNombre("LoL Worlds Cup").orElseGet(() ->
             torneoRepository.save(Torneo.builder()
                 .nombre("LoL Worlds Cup")
                 .juego(lol)
                 .esPorEquipos(true)
                 .organizadores(new HashSet<>(Set.of(organizador2)))
-                .equiposParticipantes(new HashSet<>(Set.of(equipoT1)))
                 .prizePool(10000.0)
                 .fechaInicio("11/11/2026")
                 .estado(EstadoTorneo.PENDIENTE)
@@ -206,10 +186,10 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        torneoRepository.findByNombre("Torneo Rocket League").orElseGet(() -> 
+        torneoRepository.findByNombre("Torneo Rocket League").orElseGet(() ->
             torneoRepository.save(Torneo.builder()
                 .nombre("Torneo Rocket League")
-                .juego(RL)
+                .juego(rl)
                 .esPorEquipos(false)
                 .organizadores(new HashSet<>(Set.of(organizador1)))
                 .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
@@ -225,10 +205,10 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        torneoRepository.findByNombre("CS2 OPEN FINALE").orElseGet(() -> 
+        torneoRepository.findByNombre("CS2 OPEN FINALE").orElseGet(() ->
             torneoRepository.save(Torneo.builder()
                 .nombre("CS2 OPEN FINALE")
-                .juego(Cs2)
+                .juego(cs2)
                 .esPorEquipos(false)
                 .organizadores(new HashSet<>(Set.of(organizador1)))
                 .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
@@ -244,10 +224,10 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        torneoRepository.findByNombre("Fighting Showdown").orElseGet(() -> 
+        torneoRepository.findByNombre("Fighting Showdown").orElseGet(() ->
             torneoRepository.save(Torneo.builder()
                 .nombre("Fighting Showdown")
-                .juego(MK)
+                .juego(mk)
                 .esPorEquipos(false)
                 .organizadores(new HashSet<>(Set.of(organizador1)))
                 .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
@@ -263,10 +243,10 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        torneoRepository.findByNombre("Mobile Masters").orElseGet(() -> 
+        torneoRepository.findByNombre("Mobile Masters").orElseGet(() ->
             torneoRepository.save(Torneo.builder()
                 .nombre("Mobile Masters")
-                .juego(CR)
+                .juego(cr)
                 .esPorEquipos(false)
                 .organizadores(new HashSet<>(Set.of(organizador1)))
                 .participantes(new HashSet<>(Set.of(jugador1, jugador2)))
@@ -282,6 +262,31 @@ public class DataSeeder implements CommandLineRunner {
                 .build())
         );
 
-        System.out.println("Data Seeder finalizado. Datos de prueba validados/insertados con éxito.");
+        // ==========================================
+        // 4. EQUIPOS (vinculados a un torneo concreto)
+        // ==========================================
+        equipoRepository.findByNombre("T1 Esports").orElseGet(() ->
+            equipoRepository.save(Equipo.builder()
+                .nombre("T1 Esports")
+                .logoUrl("https://upload.wikimedia.org/wikipedia/en/f/f9/T1_logo.svg")
+                .torneo(lolWorldsCup)
+                .capitan(jugador1)
+                .estado(EstadoEquipo.APROBADO)
+                .miembros(new HashSet<>(Set.of(jugador1)))
+                .build())
+        );
+
+        equipoRepository.findByNombre("Fnatic").orElseGet(() ->
+            equipoRepository.save(Equipo.builder()
+                .nombre("Fnatic")
+                .logoUrl("https://upload.wikimedia.org/wikipedia/commons/5/59/Fnatic_logo.svg")
+                .torneo(lolWorldsCup)
+                .capitan(jugador2)
+                .estado(EstadoEquipo.APROBADO)
+                .miembros(new HashSet<>(Set.of(jugador2)))
+                .build())
+        );
+
+        System.out.println("Data Seeder finalizado.");
     }
 }

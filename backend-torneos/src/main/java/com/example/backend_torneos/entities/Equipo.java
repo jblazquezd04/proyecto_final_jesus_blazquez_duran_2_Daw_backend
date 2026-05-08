@@ -26,6 +26,20 @@ public class Equipo {
     private String nombre;
     private String logoUrl;
 
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private EstadoEquipo estado = EstadoEquipo.PENDIENTE;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "torneo_id")
+    @JsonIgnoreProperties({"equiposParticipantes", "participantes", "organizadores"})
+    private Torneo torneo;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "capitan_id")
+    @JsonIgnoreProperties({"torneosOrganizados", "torneosParticipados"})
+    private Usuario capitan;
+
     @ManyToMany
     @JoinTable(
         name = "equipo_miembro",
@@ -35,9 +49,4 @@ public class Equipo {
     @JsonIgnoreProperties({"torneosParticipados", "torneosOrganizados"})
     @Builder.Default
     private Set<Usuario> miembros = new HashSet<>();
-    
-    @ManyToMany(mappedBy = "equiposParticipantes")
-    @JsonIgnoreProperties({"participantes", "equiposParticipantes", "organizadores", "juego"})
-    @Builder.Default
-    private Set<Torneo> torneosParticipados = new HashSet<>();
 }

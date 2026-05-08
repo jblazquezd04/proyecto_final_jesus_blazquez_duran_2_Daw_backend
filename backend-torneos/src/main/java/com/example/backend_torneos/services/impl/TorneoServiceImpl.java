@@ -12,10 +12,10 @@ import com.example.backend_torneos.repositories.TorneoRepository;
 import com.example.backend_torneos.repositories.UsuarioRepository;
 import com.example.backend_torneos.services.TorneoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,14 +28,11 @@ public class TorneoServiceImpl implements TorneoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<TorneoDTO> getAllTorneos(Long juegoId, Boolean esPorEquipos, Boolean esPresencial, String estado) {
-        return torneoRepository.findAll().stream()
-                .filter(t -> juegoId == null || (t.getJuego() != null && t.getJuego().getId().equals(juegoId)))
-                .filter(t -> esPorEquipos == null || t.isEsPorEquipos() == esPorEquipos)
-                .filter(t -> esPresencial == null || t.isEsPresencial() == esPresencial)
-                .filter(t -> estado == null || t.getEstado().name().equalsIgnoreCase(estado))
-                .map(torneoMapper::toDto)
-                .toList();
+    public Page<TorneoDTO> getAllTorneos(Long juegoId, Boolean esPorEquipos, Boolean esPresencial, String estado, String nombre, Pageable pageable) {
+        EstadoTorneo estadoEnum = (estado != null && !estado.isBlank()) ? EstadoTorneo.valueOf(estado.toUpperCase()) : null;
+        String nombreFiltro = (nombre != null && !nombre.isBlank()) ? nombre : null;
+        return torneoRepository.findConFiltros(juegoId, esPorEquipos, esPresencial, estadoEnum, nombreFiltro, pageable)
+                .map(torneoMapper::toDto);
     }
 
     @Override

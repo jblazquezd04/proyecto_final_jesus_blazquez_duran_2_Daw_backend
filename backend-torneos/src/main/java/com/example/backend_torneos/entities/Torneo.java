@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,20 +29,17 @@ public class Torneo {
     private Double prizePool;
     private String fechaInicio;
 
-    // Campos de estado y popularidad
     @Enumerated(EnumType.STRING)
     private EstadoTorneo estado;
-    
+
     private boolean isTrending;
 
-    // Campos de geolocalización
     private boolean esPresencial;
     private String pais;
     private String ciudad;
     private Double latitud;
     private Double longitud;
 
-    // Relaciones principales
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "juego_id")
     @JsonIgnoreProperties("torneos")
@@ -48,17 +47,12 @@ public class Torneo {
 
     private boolean esPorEquipos;
 
-    @ManyToMany
-    @JoinTable(
-        name = "torneo_equipo",
-        joinColumns = @JoinColumn(name = "torneo_id"),
-        inverseJoinColumns = @JoinColumn(name = "equipo_id")
-    )
-    @JsonIgnoreProperties("torneosParticipados")
+    // Equipos ligados a este torneo (OneToMany — cada equipo pertenece a un torneo)
+    @OneToMany(mappedBy = "torneo", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"torneo", "miembros", "capitan"})
     @Builder.Default
-    private Set<Equipo> equiposParticipantes = new HashSet<>();
+    private List<Equipo> equiposParticipantes = new ArrayList<>();
 
-    // Relaciones
     @ManyToMany
     @JoinTable(
         name = "torneo_organizador",
@@ -79,9 +73,6 @@ public class Torneo {
     @Builder.Default
     private Set<Usuario> participantes = new HashSet<>();
 
-    // Método calculado para saber si es Gold (PrizePool >= 10000)
-    // Usamos Transient para que no se guarde en la base de datos, 
-    // pero el getter hará que se incluya en el JSON de respuesta.
     @Transient
     public boolean isGold() {
         return this.prizePool != null && this.prizePool >= 10000;
