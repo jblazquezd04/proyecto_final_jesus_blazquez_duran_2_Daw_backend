@@ -79,7 +79,7 @@ public class DataSeeder implements CommandLineRunner {
                 .nombre("2XKO")
                 .desarrolladora("Riot Games")
                 .genero("Fighting")
-                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/8/88/2XKO_game_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
+                .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/7/71/Street_Fighter_old_logo.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                 .build())
         );
 
