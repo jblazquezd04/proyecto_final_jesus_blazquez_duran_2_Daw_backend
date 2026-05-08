@@ -85,7 +85,7 @@ public class DataSeeder implements CommandLineRunner {
                                         .nombre("Counter-Strike 2")
                                         .desarrolladora("Valve")
                                         .genero("Shooter")
-                                        .imagenUrl("")
+                                        .imagenUrl("https://upload.wikimedia.org/wikipedia/commons/b/b8/Counter-Strike_2_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original")
                                         .build();
 
                         Juego RL = Juego.builder()
