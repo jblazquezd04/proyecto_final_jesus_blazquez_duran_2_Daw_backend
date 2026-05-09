@@ -2,9 +2,12 @@ package com.example.backend_torneos.controllers;
 
 import com.example.backend_torneos.dtos.CrearEquipoDTO;
 import com.example.backend_torneos.dtos.EquipoDTO;
+import com.example.backend_torneos.dtos.PartidoDTO;
+import com.example.backend_torneos.dtos.ResultadoRequest;
 import com.example.backend_torneos.dtos.TorneoCreateDTO;
 import com.example.backend_torneos.dtos.TorneoDTO;
 import com.example.backend_torneos.services.EquipoService;
+import com.example.backend_torneos.services.PartidoService;
 import com.example.backend_torneos.services.TorneoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +26,7 @@ public class TorneoController {
 
     private final TorneoService torneoService;
     private final EquipoService equipoService;
+    private final PartidoService partidoService;
 
     @GetMapping("/{id}")
     public ResponseEntity<TorneoDTO> getTorneoById(@PathVariable Long id) {
@@ -100,5 +104,39 @@ public class TorneoController {
             @PathVariable Long equipoId,
             @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(equipoService.rechazar(id, equipoId, userDetails.getUsername()));
+    }
+
+    // ── Endpoints de Partidos ───────────────────────────────────
+
+    @GetMapping("/{id}/partidos")
+    public ResponseEntity<List<PartidoDTO>> getPartidos(@PathVariable Long id) {
+        return ResponseEntity.ok(partidoService.getPartidos(id));
+    }
+
+    @PostMapping("/{id}/partidos/generar")
+    public ResponseEntity<List<PartidoDTO>> generarBracket(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(partidoService.generarBracket(id, userDetails.getUsername()));
+    }
+
+    @PostMapping("/{id}/partidos/{partidoId}/reportar")
+    public ResponseEntity<PartidoDTO> reportarResultado(
+            @PathVariable Long id,
+            @PathVariable Long partidoId,
+            @RequestBody ResultadoRequest request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(
+                partidoService.reportarResultado(id, partidoId, request.isGanadorEsJ1(), userDetails.getUsername()));
+    }
+
+    @PutMapping("/{id}/partidos/{partidoId}/resolver")
+    public ResponseEntity<PartidoDTO> resolverDisputa(
+            @PathVariable Long id,
+            @PathVariable Long partidoId,
+            @RequestBody ResultadoRequest request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(
+                partidoService.resolverDisputa(id, partidoId, request.isGanadorEsJ1(), userDetails.getUsername()));
     }
 }
