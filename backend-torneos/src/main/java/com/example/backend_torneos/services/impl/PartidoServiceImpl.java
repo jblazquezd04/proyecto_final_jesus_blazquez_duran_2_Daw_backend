@@ -3,6 +3,7 @@ package com.example.backend_torneos.services.impl;
 import com.example.backend_torneos.dtos.PartidoDTO;
 import com.example.backend_torneos.entities.*;
 import com.example.backend_torneos.repositories.*;
+import com.example.backend_torneos.services.EmailService;
 import com.example.backend_torneos.services.PartidoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class PartidoServiceImpl implements PartidoService {
     private final TorneoRepository torneoRepository;
     private final UsuarioRepository usuarioRepository;
     private final EquipoRepository equipoRepository;
+    private final EmailService emailService;
 
     // ── Generar bracket ───────────────────────────────────────────
 
@@ -203,8 +205,10 @@ public class PartidoServiceImpl implements PartidoService {
             p.setEstado(EstadoPartido.CONFIRMADO);
             Partido guardado = partidoRepository.save(p);
             avanzarGanador(guardado, torneo);
+            notificarResultadoConfirmado(guardado, torneo);
         } else {
             p.setEstado(EstadoPartido.EN_DISPUTA);
+            notificarDisputa(p, torneo);
         }
     }
 
@@ -279,6 +283,32 @@ public class PartidoServiceImpl implements PartidoService {
         boolean esOrg = torneo.getOrganizadores().stream()
                 .anyMatch(u -> u.getEmail().equals(username));
         if (!esOrg) throw new RuntimeException("Solo el organizador puede realizar esta acción");
+    }
+
+    private void notificarResultadoConfirmado(Partido p, Torneo torneo) {
+        String ganador = p.getGanadorUsuario() != null
+                ? p.getGanadorUsuario().getUsername()
+                : (p.getGanadorEquipo() != null ? p.getGanadorEquipo().getNombre() : "?");
+        String nombreTorneo = torneo.getNombre();
+
+        if (!torneo.isEsPorEquipos()) {
+            if (p.getJugador1() != null)
+                emailService.sendResultConfirmed(p.getJugador1().getEmail(), nombreTorneo, ganador);
+            if (p.getJugador2() != null)
+                emailService.sendResultConfirmed(p.getJugador2().getEmail(), nombreTorneo, ganador);
+        } else {
+            if (p.getEquipo1() != null)
+                p.getEquipo1().getMiembros().forEach(m ->
+                        emailService.sendResultConfirmed(m.getEmail(), nombreTorneo, ganador));
+            if (p.getEquipo2() != null)
+                p.getEquipo2().getMiembros().forEach(m ->
+                        emailService.sendResultConfirmed(m.getEmail(), nombreTorneo, ganador));
+        }
+    }
+
+    private void notificarDisputa(Partido p, Torneo torneo) {
+        torneo.getOrganizadores().forEach(org ->
+                emailService.sendDisputePending(org.getEmail(), torneo.getNombre()));
     }
 
     // ── DTO mapper ────────────────────────────────────────────────

@@ -24,6 +24,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     public AuthResponse register(RegisterRequest request) {
         if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -41,6 +42,8 @@ public class AuthService {
                 .build();
 
         usuarioRepository.save(user);
+
+        emailService.sendWelcome(user.getEmail(), user.getUsername());
 
         String jwtToken = jwtUtil.generateToken(new User(user.getEmail(), user.getPassword(), Collections.emptyList()));
 
@@ -63,6 +66,8 @@ public class AuthService {
 
         Usuario user = usuarioRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        emailService.sendLoginAlert(user.getEmail(), user.getUsername());
 
         String jwtToken = jwtUtil.generateToken(new User(user.getEmail(), user.getPassword(), Collections.emptyList()));
 
