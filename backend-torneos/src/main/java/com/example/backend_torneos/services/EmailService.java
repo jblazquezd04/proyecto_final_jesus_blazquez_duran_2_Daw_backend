@@ -1,23 +1,34 @@
 package com.example.backend_torneos.services;
 
-import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
 public class EmailService {
 
-    @Autowired(required = false)
-    private JavaMailSender mailSender;
+    private static final String MAILTRAP_URL = "https://sandbox.api.mailtrap.io/api/send/";
 
-    @Value("${mail.from:MatchOn <noreply@matchon.app>}")
-    private String from;
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    @Value("${mailtrap.api-token:}")
+    private String apiToken;
+
+    @Value("${mailtrap.inbox-id:}")
+    private String inboxId;
+
+    @Value("${mail.from-name:MatchOn}")
+    private String fromName;
+
+    @Value("${mail.from-email:noreply@matchon.app}")
+    private String fromEmail;
 
     @Value("${mail.admin:admin@matchon.app}")
     private String adminEmail;
@@ -73,7 +84,7 @@ public class EmailService {
              "Disputa pendiente en " + torneoNombre,
              buildHtml(
                  "Disputa pendiente de resolución",
-                 "Hay una discrepancia en los resultados reportados del torneo <strong>" + torneoNombre + "</strong>.<br><br>"
+                 "Hay una discrepancia en los resultados del torneo <strong>" + torneoNombre + "</strong>.<br><br>"
                  + "Accede al panel del torneo y resuelve la disputa para que el bracket pueda continuar.",
                  "Resolver disputa", frontendUrl + "/torneos"
              ));
@@ -122,21 +133,27 @@ public class EmailService {
         send(adminEmail, "Contacto de " + nombre + " – MatchOn", html);
     }
 
-    // ── Envío genérico ────────────────────────────────────────────
+    // ── Envío via Mailtrap API HTTP ───────────────────────────────
 
     private void send(String to, String subject, String html) {
-        if (mailSender == null) {
-            log.warn("JavaMailSender no configurado – email omitido para {}: {}", to, subject);
+        if (apiToken == null || apiToken.isBlank() || inboxId == null || inboxId.isBlank()) {
+            log.warn("Mailtrap no configurado – email omitido para {}: {}", to, subject);
             return;
         }
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setFrom(from);
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(html, true);
-            mailSender.send(message);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(apiToken);
+
+            Map<String, Object> body = Map.of(
+                "from",    Map.of("email", fromEmail, "name", fromName),
+                "to",      List.of(Map.of("email", to)),
+                "subject", subject,
+                "html",    html
+            );
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+            restTemplate.postForEntity(MAILTRAP_URL + inboxId, request, String.class);
             log.info("Email enviado a {}: {}", to, subject);
         } catch (Exception e) {
             log.error("Error enviando email a {}: {}", to, e.getMessage());
