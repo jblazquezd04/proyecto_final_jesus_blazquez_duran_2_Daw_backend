@@ -19,10 +19,15 @@ public interface TorneoMapper {
     TorneoDTO toDto(Torneo torneo);
 
     @Mapping(target = "equiposParticipantes", ignore = true)
+    @Mapping(target = "isTrending", ignore = true)
     Torneo toEntity(TorneoDTO torneoDTO);
 
     UsuarioDTO toDto(Usuario usuario);
 
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "telefono", ignore = true)
+    @Mapping(target = "torneosOrganizados", ignore = true)
+    @Mapping(target = "torneosParticipados", ignore = true)
     Usuario toEntity(UsuarioDTO usuarioDTO);
 
     List<TorneoDTO> toDtoList(List<Torneo> torneos);
