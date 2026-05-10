@@ -27,7 +27,10 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
         if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("El email ya está registrado");
+            throw new IllegalArgumentException("El email ya está registrado");
+        }
+        if (usuarioRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("El nombre de usuario ya está en uso");
         }
 
         Usuario user = Usuario.builder()
