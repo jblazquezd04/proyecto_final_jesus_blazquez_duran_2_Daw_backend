@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,6 +27,7 @@ public class EmailService {
 
     // ── Bienvenida al registrarse ─────────────────────────────────
 
+    @Async
     public void sendWelcome(String to, String username) {
         send(to,
              "¡Bienvenido a MatchOn!",
@@ -38,6 +40,7 @@ public class EmailService {
 
     // ── Alerta de inicio de sesión ────────────────────────────────
 
+    @Async
     public void sendLoginAlert(String to, String username) {
         send(to,
              "Nuevo inicio de sesión en MatchOn",
@@ -50,6 +53,7 @@ public class EmailService {
 
     // ── Resultado de partida confirmado (jugadores) ───────────────
 
+    @Async
     public void sendResultConfirmed(String to, String torneoNombre, String ganadorNombre) {
         send(to,
              "Resultado confirmado en " + torneoNombre,
@@ -63,6 +67,7 @@ public class EmailService {
 
     // ── Disputa pendiente (organizador) ──────────────────────────
 
+    @Async
     public void sendDisputePending(String to, String torneoNombre) {
         send(to,
              "Disputa pendiente en " + torneoNombre,
@@ -76,6 +81,7 @@ public class EmailService {
 
     // ── Confirmación de pago ──────────────────────────────────────
 
+    @Async
     public void sendPaymentConfirmation(String to, String username, String orderId, String total) {
         send(to,
              "Pago confirmado – Pedido " + orderId,
@@ -90,6 +96,7 @@ public class EmailService {
 
     // ── Acuse de recibo del formulario de contacto (al usuario) ──
 
+    @Async
     public void sendContactAck(String to, String nombre) {
         send(to,
              "Hemos recibido tu mensaje",
@@ -102,6 +109,7 @@ public class EmailService {
 
     // ── Reenvío del mensaje al administrador ─────────────────────
 
+    @Async
     public void forwardContact(String nombre, String replyTo, String mensaje) {
         String html = "<div style='font-family:Arial,sans-serif;padding:24px;'>"
                 + "<h2 style='color:#4a2fdb;'>Nuevo mensaje de contacto</h2>"
